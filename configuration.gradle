@@ -1,0 +1,69 @@
+apply from: gradleScript('extensions')
+
+/*!
+* Maven Publishing Configuration
+*/
+publishing {
+    repositories {
+        maven {
+            credentials {
+                username project.nexusUsername
+                password project.nexusPassword
+            }
+
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = artifactName
+            artifact ("${buildDir}\\outputs\\aar\\${artifactName}-release.aar")
+            groupId = publishedGroupId
+            version = libraryVersion
+
+            pom {
+                packaging = 'aar'
+                groupId = publishedGroupId
+                artifactId = artifactName
+
+                name = libraryName
+                description = libraryDescription
+                url = siteUrl
+
+                licenses {
+                    license {
+                        name = licenseName
+                        url = licenseUrl
+                    }
+                }
+                developers {
+                    developer {
+                        id = developerId
+                        name = developerName
+                        email = developerEmail
+                    }
+                }
+                scm {
+                    connection = gitUrl
+                    developerConnection = gitUrl
+                    url = siteUrl
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+//javadoc {
+//    if(JavaVersion.current().isJava9Compatible()) {
+//        options.addBooleanOption('html5', true)
+//    }
+//}
+
+/*!
+* End of Maven Publishing Configuration
+*/
