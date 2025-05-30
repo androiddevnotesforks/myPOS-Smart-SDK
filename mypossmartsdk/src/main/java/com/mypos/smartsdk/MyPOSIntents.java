@@ -293,12 +293,13 @@ public class MyPOSIntents {
         return myposIntent;
     }
 
-    public static Intent getTwintPaymentIntent(double amount, Currency currency, Locale language) {
+    public static Intent getTwintPaymentIntent(double amount, Currency currency, Locale language, boolean skipConfirmationScreen) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_TWINT_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PAYMENT);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         if (language != null)
             myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, language.getLanguage());
@@ -306,26 +307,65 @@ public class MyPOSIntents {
         return myposIntent;
     }
 
-    public static Intent getTwintRefundIntent(double amount, Currency currency) {
+    public static Intent getTwintRefundIntent(double amount, Currency currency, boolean skipConfirmationScreen) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_TWINT_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_REFUND);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         return myposIntent;
     }
 
-    public static Intent getTwintVoidIntent(double amount, Currency currency, String originalTwintReference) {
+    public static Intent getTwintVoidIntent(double amount, Currency currency, String originalTwintReference, boolean skipConfirmationScreen) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_TWINT_VOID);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_VOID);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
         myposIntent.putExtra(MyPOSUtil.INTENT_TWINT_ORIGINAL_REFERENCE, originalTwintReference);
+        myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         return myposIntent;
     }
+
+
+    public static Intent getSatispayPaymentIntent(double amount, Currency currency, boolean skipConfirmationScreen) {
+        Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT);
+
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PAYMENT);
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
+
+        return myposIntent;
+    }
+
+    public static Intent getSatispayRefundIntent(double amount, Currency currency, boolean skipConfirmationScreen) {
+        Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT);
+
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_REFUND);
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
+
+        return myposIntent;
+    }
+
+    public static Intent getSatispayVoidIntent(double amount, Currency currency, String originalReference, boolean skipConfirmationScreen) {
+        Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT);
+
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_VOID);
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_SATISPAY_ORIGINAL_REFERENCE, originalReference);
+        myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
+
+        return myposIntent;
+    }
+
+
 
     public static Intent getCompleteTxIntent(Double partialAmount, String credential, String foreignTransactionId, Locale language, boolean skipConfirmationScreen) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_COMPLETE_TX);

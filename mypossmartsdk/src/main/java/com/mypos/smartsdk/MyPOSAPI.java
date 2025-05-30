@@ -487,25 +487,62 @@ public class MyPOSAPI {
     }
 
     public static void openTwintPaymentActivity(Activity activity, double amount, Currency currency, Locale language, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getTwintPaymentIntent(amount, currency, language);
+        openTwintPaymentActivity(activity, amount, currency, language, false, requestCode);
+
+    }
+
+    public static void openTwintPaymentActivity(Activity activity, double amount, Currency currency, Locale language, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getTwintPaymentIntent(amount, currency, language, skipConfirmationScreen);
 
         startActivityForResult(activity, myposIntent, requestCode);
 
     }
 
     public static void openTwintRefundActivity(Activity activity, double amount, Currency currency, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getTwintRefundIntent(amount, currency);
+        openTwintRefundActivity(activity,amount,currency, false, requestCode);
+
+    }
+
+    public static void openTwintRefundActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getTwintRefundIntent(amount, currency, skipConfirmationScreen);
 
         startActivityForResult(activity, myposIntent, requestCode);
 
     }
 
     public static void openTwintVoidActivity(Activity activity, double amount, Currency currency, String originalReference, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getTwintVoidIntent(amount, currency, originalReference);
+        openTwintVoidActivity(activity, amount, currency, originalReference, false, requestCode);
+
+    }
+
+    public static void openTwintVoidActivity(Activity activity, double amount, Currency currency, String originalReference, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getTwintVoidIntent(amount, currency, originalReference, skipConfirmationScreen);
 
         startActivityForResult(activity, myposIntent, requestCode);
 
     }
+
+    public static void openSatispayPaymentActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getSatispayPaymentIntent(amount, currency, skipConfirmationScreen);
+
+        startActivityForResult(activity, myposIntent, requestCode);
+
+    }
+
+    public static void openSatispayRefundActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(amount, currency, skipConfirmationScreen);
+
+        startActivityForResult(activity, myposIntent, requestCode);
+
+    }
+
+    public static void openSatispayVoidActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, String originalReference, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getSatispayVoidIntent(amount, currency, originalReference, skipConfirmationScreen);
+
+        startActivityForResult(activity, myposIntent, requestCode);
+
+    }
+
 
     public static void openCompleteTxActivity(Activity activity, Double partialAmount, String credential, String foreignTransactionId, Locale language,boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
         Intent myposIntent = MyPOSIntents.getCompleteTxIntent(partialAmount, credential, foreignTransactionId, language, skipConfirmationScreen);

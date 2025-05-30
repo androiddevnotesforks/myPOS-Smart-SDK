@@ -32,6 +32,8 @@ public class MyPOSUtil {
 
     public static final String PAYMENT_CORE_ENTRY_TWINT_VOID             = "com.mypos.transaction.TWINT_VOID";
 
+    public static final String PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT       = "com.mypos.transaction.SATISPAY_PAYMENT";
+
     public static final String PAYMENT_CORE_ENTRY_COMPLETE_TX            = "com.mypos.transaction.COMPLETE_TX";
 
     /**
@@ -112,6 +114,7 @@ public class MyPOSUtil {
     public static final String INTENT_ENABLE_VISA_SENSORY        = "enable_visa_sensory";
     public static final String INTENT_E_RECEIPT_RECEIVER         = "receipt_receiver";
     public static final String INTENT_TWINT_ORIGINAL_REFERENCE   = "twint_original_reference";
+    public static final String INTENT_SATISPAY_ORIGINAL_REFERENCE= "satispay_original_reference";
     public static final String INTENT_APP_MAIN_COLOR             = "app_main_color";
     public static final String INTENT_STORE_CARD                 = "store_card";
     public static final String INTENT_AUTHORIZATION_ONLY         = "authorization_only";
