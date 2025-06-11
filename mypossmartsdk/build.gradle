@@ -1,46 +1,18 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.bmuschko.nexus'
-
-def versionNumber = 24
-def versionString = "1.0.4"
-
-ext {
-    bintrayRepo = 'myPOSSmartSDK'
-    bintrayName = 'mypossmartsdk'
-
-    publishedGroupId = 'com.mypos'
-    libraryName = 'myPOS-Smart-SDK'
-    artifact = 'mypossmartsdk'
-
-    libraryDescription = 'This repository provides a guidance on integrating an Android app with a myPOS Smart device. Once integrated, ' +
-            'the app will be able to communicate with the core device components in order to accept card payments (including but not limited to VISA,' +
-            ' Mastercard, UnionPay International, JCB, Bancontact). myPOS-Smart-SDK complеments a Smart POS terminal in order to initiate transaction,' +
-            ' complete all steps for processing payment, make refund to the customer card account and print a custom bill slip using the device printer.' +
-            ' The built-in functionalities of myPOS-Smart-SDK allow you to send Payment Requests, manage operations for the first and second SAM component the myPOS Smart device has and print bitmap image integrated to the receipt (e.g. QR Code).'
-
-    siteUrl = 'https://github.com/developermypos/myPOS-Smart-SDK'
-    gitUrl = 'https://github.com/developermypos/myPOS-Smart-SDK.git'
-
-    libraryVersion = versionString
-
-    developerId = 'mypos'
-    developerName = 'myPOS Developers'
-    developerEmail = 'devrel@mypos.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+    id 'signing'
 }
 
+apply from: gradleScript('configuration')
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    compileSdkVersion 34
+    buildToolsVersion "30.0.3"
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 34
         versionCode versionNumber
-        version versionString
         versionName versionString
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -54,20 +26,15 @@ android {
         abortOnError false
     }
 
-    libraryVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.aar')) {
-                def fileName = "${archivesBaseName}-${version}.aar"
-//                output.outputFile = new File(outputFile.parent, fileName)
-            }
-        }
+    lint {
+        baseline = file("lint-baseline.xml")
     }
+    tasks.withType(Javadoc).all { enabled = false }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 //    implementation 'com.android.support:appcompat-v7:25.3.1'
@@ -78,38 +45,6 @@ dependencies {
 group = publishedGroupId
 version = libraryVersion
 
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            packaging 'aar'
-            groupId publishedGroupId
-            artifactId artifact
-
-            name libraryName
-            description libraryDescription
-            url siteUrl
-
-            licenses {
-                license {
-                    name licenseName
-                    url licenseUrl
-                }
-            }
-            developers {
-                developer {
-                    id developerId
-                    name developerName
-                    email developerEmail
-                }
-            }
-            scm {
-                connection gitUrl
-                developerConnection gitUrl
-                url siteUrl
-            }
-        }
-    }
-}
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -125,48 +60,12 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
+
 artifacts {
-//    archives javadocJar
+    archives javadocJar
     archives sourcesJar
 }
 
-
-modifyPom {
-    project {
-        name libraryName
-        description libraryDescription
-        url siteUrl
-        inceptionYear '2021'
-
-        scm {
-            url siteUrl
-            connection gitUrl
-            developerConnection gitUrl
-        }
-
-        licenses {
-            license {
-                name licenseName
-                url licenseUrl
-                distribution 'repo'
-            }
-        }
-
-        developers {
-            developer {
-                id developerId
-                name developerName
-                email developerEmail
-            }
-        }
-    }
-}
-
-nexus {
-    sign = true
-    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
-}
 
 //
 //Properties properties = new Properties()
