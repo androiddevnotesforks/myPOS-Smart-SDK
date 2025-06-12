@@ -1,13 +1,13 @@
 ext {
-    versionNumber = 24
-    versionString = "1.0.4"
+    versionNumber = 26
+    versionString = "1.0.6"
 
     bintrayRepo = 'myPOSSmartSDK'
     bintrayName = 'mypossmartsdk'
 
     publishedGroupId = 'com.mypos'
-    libraryName = 'myPOS-Slave-SDK'
-    artifactName = 'slavesdk'
+    libraryName = 'myPOS-Smart-SDK'
+    artifactName = 'mypossmartsdk'
 
     libraryDescription = 'This repository provides a guidance on integrating an Android app with a myPOS Smart device. Once integrated, ' +
             'the app will be able to communicate with the core device components in order to accept card payments (including but not limited to VISA,' +
