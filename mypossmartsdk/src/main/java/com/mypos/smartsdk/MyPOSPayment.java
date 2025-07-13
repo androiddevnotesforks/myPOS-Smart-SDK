@@ -292,14 +292,14 @@ public class MyPOSPayment extends MyPOSBase<MyPOSPayment> {
         }
 
         public MyPOSPayment build() throws InvalidAmountException, InvalidTipAmountException, MissingCurrencyException, GiftCardUnsupportedParamsException, InvalidOperatorCodeException, InvalidReferenceTypeException, InvalidReferenceNumberException {
-            if (this.productAmount == null || this.productAmount <= 0.0D) {
+            if (this.productAmount == null || this.productAmount <= 0.0D || Double.isNaN(this.productAmount)) {
                 throw new InvalidAmountException("Invalid or missing amount");
             }
             if (this.currency == null) {
                 throw new MissingCurrencyException("Missing currency");
             }
 
-            if (this.tippingModeEnabled && this.tipAmount <= 0.0D) {
+            if (this.tippingModeEnabled && (this.tipAmount <= 0.0D || Double.isNaN(this.tipAmount))) {
                 throw new InvalidTipAmountException("Invalid tip amount");
             }
 

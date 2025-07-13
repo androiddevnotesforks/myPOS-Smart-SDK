@@ -113,7 +113,7 @@ public class MyPOSGiftCardActivation extends MyPOSBase<MyPOSGiftCardActivation> 
         }
 
         public MyPOSGiftCardActivation build() throws InvalidAmountException, InvalidTipAmountException, MissingCurrencyException, InvalidOperatorCodeException, InvalidReferenceTypeException, InvalidReferenceNumberException {
-            if (this.productAmount == null || this.productAmount <= 0.0D) {
+            if (this.productAmount == null || this.productAmount <= 0.0D || Double.isNaN(this.productAmount)) {
                 throw new InvalidAmountException("Invalid or missing amount");
             }
             if (this.currency == null) {

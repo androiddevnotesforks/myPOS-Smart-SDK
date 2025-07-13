@@ -201,7 +201,7 @@ public class MyPOSPreauthorization extends MyPOSBase<MyPOSPreauthorization> {
         }
 
         public MyPOSPreauthorization build() throws InvalidAmountException, MissingCurrencyException, InvalidReferenceTypeException, InvalidReferenceNumberException {
-            if (this.productAmount == null || this.productAmount <= 0.0D) {
+            if (this.productAmount == null || this.productAmount <= 0.0D || Double.isNaN(this.productAmount)) {
                 throw new InvalidAmountException("Invalid or missing amount");
             }
             if (this.currency == null) {

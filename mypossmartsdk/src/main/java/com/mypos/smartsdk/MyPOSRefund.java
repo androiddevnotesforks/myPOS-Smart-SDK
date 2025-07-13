@@ -191,7 +191,7 @@ public class MyPOSRefund extends MyPOSBase<MyPOSRefund> {
         }
 
         public MyPOSRefund build() throws InvalidAmountException, MissingCurrencyException, GiftCardUnsupportedParamsException {
-            if (this.refundAmount == null || this.refundAmount <= 0.0D) {
+            if (this.refundAmount == null || this.refundAmount <= 0.0D || Double.isNaN(this.refundAmount)) {
                 throw new InvalidAmountException("Invalid amount");
             }
             if (this.currency == null) {

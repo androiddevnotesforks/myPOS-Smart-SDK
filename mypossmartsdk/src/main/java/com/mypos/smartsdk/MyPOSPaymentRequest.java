@@ -176,7 +176,7 @@ public class MyPOSPaymentRequest {
         }
 
         public MyPOSPaymentRequest build() throws MissingCurrencyException, InvalidAmountException, MissingRecipientException {
-            if(this.productAmount != null && this.productAmount.doubleValue() > 0.0D) {
+            if(this.productAmount != null && this.productAmount > 0.0D || Double.isNaN(this.productAmount)) {
                 if(this.currency == null) {
                     throw new MissingCurrencyException("Missing currency");
                 } else if(this.GSM != null && !this.GSM.isEmpty() || this.eMail != null && !this.eMail.isEmpty()) {
