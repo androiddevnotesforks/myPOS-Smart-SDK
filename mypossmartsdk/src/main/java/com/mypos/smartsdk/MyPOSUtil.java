@@ -34,6 +34,8 @@ public class MyPOSUtil {
 
     public static final String PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT       = "com.mypos.transaction.SATISPAY_PAYMENT";
 
+    public static final String PAYMENT_CORE_ENTRY_IRIS_PAYMENT           = "com.mypos.transaction.IRIS_PAYMENT";
+
     public static final String PAYMENT_CORE_ENTRY_COMPLETE_TX            = "com.mypos.transaction.COMPLETE_TX";
 
     /**

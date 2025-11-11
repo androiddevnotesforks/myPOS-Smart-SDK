@@ -543,6 +543,19 @@ public class MyPOSAPI {
 
     }
 
+    public static void openIrisPaymentActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getIrisPaymentIntent(amount, currency, skipConfirmationScreen);
+
+        startActivityForResult(activity, myposIntent, requestCode);
+
+    }
+
+    public static void openIrisRefundActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getIrisRefundIntent(amount, currency, skipConfirmationScreen);
+
+        startActivityForResult(activity, myposIntent, requestCode);
+
+    }
 
     public static void openCompleteTxActivity(Activity activity, Double partialAmount, String credential, String foreignTransactionId, Locale language,boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
         Intent myposIntent = MyPOSIntents.getCompleteTxIntent(partialAmount, credential, foreignTransactionId, language, skipConfirmationScreen);
