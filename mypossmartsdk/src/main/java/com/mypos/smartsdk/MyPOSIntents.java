@@ -342,12 +342,13 @@ public class MyPOSIntents {
         return myposIntent;
     }
 
-    public static Intent getSatispayRefundIntent(double amount, Currency currency, boolean skipConfirmationScreen) {
+    public static Intent getSatispayRefundIntent(double amount, Currency currency, String originalReference, boolean skipConfirmationScreen) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_REFUND);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_SATISPAY_ORIGINAL_REFERENCE, originalReference);
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         return myposIntent;

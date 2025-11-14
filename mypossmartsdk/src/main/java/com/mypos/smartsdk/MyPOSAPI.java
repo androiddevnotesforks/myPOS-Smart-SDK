@@ -529,8 +529,8 @@ public class MyPOSAPI {
 
     }
 
-    public static void openSatispayRefundActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(amount, currency, skipConfirmationScreen);
+    public static void openSatispayRefundActivity(Activity activity, double amount, Currency currency, String originalReference, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(amount, currency, originalReference, skipConfirmationScreen);
 
         startActivityForResult(activity, myposIntent, requestCode);
 
