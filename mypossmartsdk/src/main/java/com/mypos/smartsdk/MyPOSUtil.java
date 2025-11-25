@@ -190,6 +190,10 @@ public class MyPOSUtil {
 
     public static final int TRANSACTION_TYPE_TWINT_PAYMENT              = 115;
 
+    public static final int TRANSACTION_TYPE_SATISPAY_PAYMENT           = 116;
+
+    public static final int TRANSACTION_TYPE_IRIS_PAYMENT               = 117;
+
     // SAM Card
     public static final String INTENT_SAM_CARD                      = "com.mypos.action.SAM_CARD";
     public static final String SAM_CARD_RESPONSE_BROADCAST          = "com.mypos.broadcast.SAM_CARD";

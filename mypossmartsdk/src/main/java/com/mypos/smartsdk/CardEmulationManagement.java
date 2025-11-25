@@ -1,4 +1,4 @@
-package com.mypos.appmanagment;
+package com.mypos.smartsdk;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -8,7 +8,11 @@ import android.content.pm.ResolveInfo;
 import android.os.IBinder;
 import android.os.RemoteException;
 
-import com.mypos.smartsdk.OnBindListener;
+import com.mypos.appmanagment.ICardEmulationInterface;
+import com.mypos.appmanagment.IOnCardEmulationListener;
+import com.mypos.appmanagment.ISystemAidlInterface;
+import com.mypos.appmanagment.NdefUserMessageRecord;
+import com.mypos.appmanagment.NfcTagTypeEnum;
 
 import java.net.BindException;
 import java.util.List;
