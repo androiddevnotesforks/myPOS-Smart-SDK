@@ -1,5 +1,6 @@
 package com.mypos.smartsdk;
 
+import com.mypos.smartsdk.exceptions.ApplicationIdException;
 import com.mypos.smartsdk.exceptions.InvalidAmountException;
 import com.mypos.smartsdk.exceptions.InvalidEReceiptReceiverException;
 import com.mypos.smartsdk.exceptions.InvalidReferenceNumberException;
@@ -215,6 +216,9 @@ public class MyPOSPreauthorization extends MyPOSBase<MyPOSPreauthorization> {
             }
             if(eReceiptReceiver != null && !MyPOSUtil.isEmailValid(eReceiptReceiver) && !MyPOSUtil.isMobileNumberValid(eReceiptReceiver)) {
                 throw new InvalidEReceiptReceiverException("e-receipt credential is not valid");
+            }
+            if (applicationId != null && applicationId.length() != 16) {
+                throw new ApplicationIdException("Invalid application id");
             }
 
             return new MyPOSPreauthorization(this);

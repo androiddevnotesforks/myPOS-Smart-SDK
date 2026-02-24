@@ -124,6 +124,7 @@ public class MyPOSUtil {
     public static final String INTENT_CARD_TIMEOUT               = "card_detection_timeout";
     public static final String INTENT_HIDE_AMOUNT               = "hide_amount";
     public static final String INTENT_HIDE_CANCEL               = "hide_cancel";
+    public static final String INTENT_ORIGIN_PACKAGE_INFO       = "origin_package_info";
     /**
      * Code used for completing a preauthorization transaction
      */

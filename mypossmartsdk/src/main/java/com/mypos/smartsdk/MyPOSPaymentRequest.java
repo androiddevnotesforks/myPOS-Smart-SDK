@@ -1,5 +1,6 @@
 package com.mypos.smartsdk;
 
+import com.mypos.smartsdk.exceptions.ApplicationIdException;
 import com.mypos.smartsdk.exceptions.InvalidAmountException;
 import com.mypos.smartsdk.exceptions.MissingCurrencyException;
 import com.mypos.smartsdk.exceptions.MissingRecipientException;
@@ -18,6 +19,7 @@ public class MyPOSPaymentRequest {
     private String recipientName;
     private String requestCode;
     private Integer expiryDays;
+    private String applicationId;
 
     MyPOSPaymentRequest(MyPOSPaymentRequest.Builder builder) {
         this.productAmount = builder.productAmount;
@@ -29,6 +31,7 @@ public class MyPOSPaymentRequest {
         this.recipientName = builder.recipientName;
         this.requestCode = builder.requestCode;
         this.expiryDays = builder.expiryDays;
+        this.applicationId = builder.applicationId;
     }
 
     public static MyPOSPaymentRequest.Builder builder() {
@@ -116,6 +119,15 @@ public class MyPOSPaymentRequest {
         return this;
     }
 
+    public String getApplicationId() {
+        return this.applicationId;
+    }
+
+    public MyPOSPaymentRequest setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+        return this;
+    }
+
     public static class Builder {
         private Double productAmount;
         private Currency currency;
@@ -126,6 +138,7 @@ public class MyPOSPaymentRequest {
         private String recipientName;
         private String requestCode;
         private Integer expiryDays;
+        private String applicationId;
 
         public Builder() {
         }
@@ -174,12 +187,19 @@ public class MyPOSPaymentRequest {
             this.expiryDays = Integer.valueOf(expiryDays);
             return this;
         }
+        public MyPOSPaymentRequest.Builder applicationId(String applicationId) {
+            this.applicationId = applicationId;
+            return this;
+        }
 
         public MyPOSPaymentRequest build() throws MissingCurrencyException, InvalidAmountException, MissingRecipientException {
             if(this.productAmount != null && this.productAmount > 0.0D || Double.isNaN(this.productAmount)) {
                 if(this.currency == null) {
                     throw new MissingCurrencyException("Missing currency");
                 } else if(this.GSM != null && !this.GSM.isEmpty() || this.eMail != null && !this.eMail.isEmpty()) {
+                    if (applicationId != null && applicationId.length() != 16) {
+                        throw new ApplicationIdException("Invalid application id");
+                    }
                     return new MyPOSPaymentRequest(this);
                 } else {
                     throw new MissingRecipientException("Missing recipient");

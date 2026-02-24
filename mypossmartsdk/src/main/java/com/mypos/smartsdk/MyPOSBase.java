@@ -1,5 +1,7 @@
 package com.mypos.smartsdk;
 
+import com.mypos.smartsdk.exceptions.ApplicationIdException;
+
 import java.io.Serializable;
 import java.util.Locale;
 
@@ -10,6 +12,7 @@ public class MyPOSBase<D extends MyPOSBase> implements Serializable {
     private int         printMerchantReceipt;
     private int         printCustomerReceipt;
     private int         baseColor;
+    private String      applicationId;
 
     public String getForeignTransactionId() {
         return foreignTransactionId;
@@ -56,12 +59,22 @@ public class MyPOSBase<D extends MyPOSBase> implements Serializable {
         return (D) this;
     }
 
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public D setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+        return (D) this;
+    }
+
     protected MyPOSBase(BaseBuilder builder) {
         this.printMerchantReceipt = builder.printMerchantReceipt;
         this.printCustomerReceipt = builder.printCustomerReceipt;
         this.foreignTransactionId = builder.foreignTransactionId;
         this.language = builder.language;
         this.baseColor = builder.baseColor;
+        this.applicationId = builder.applicationId;
     }
 
     public static BaseBuilder builder() {
@@ -70,11 +83,12 @@ public class MyPOSBase<D extends MyPOSBase> implements Serializable {
 
     public static class BaseBuilder<T extends BaseBuilder<T>> implements Serializable {
 
-        private String foreignTransactionId;
-        private Locale language;
-        private int    printMerchantReceipt;
-        private int    printCustomerReceipt;
-        private int    baseColor;
+        protected String foreignTransactionId;
+        protected Locale language;
+        protected int    printMerchantReceipt;
+        protected int    printCustomerReceipt;
+        protected int    baseColor;
+        protected String applicationId;
 
         public T printMerchantReceipt(int printMerchantReceipt) {
             this.printMerchantReceipt = printMerchantReceipt;
@@ -101,7 +115,15 @@ public class MyPOSBase<D extends MyPOSBase> implements Serializable {
             return (T) this;
         }
 
+        public T applicationId(String applicationId) {
+            this.applicationId = applicationId;
+            return (T) this;
+        }
+
         public MyPOSBase build() {
+            if (applicationId != null && applicationId.length() != 16) {
+                throw new ApplicationIdException("Invalid application id");
+            }
             return new MyPOSBase(this);
         }
 
