@@ -7,8 +7,10 @@ publishing {
     repositories {
         maven {
             credentials {
-                username project.nexusUsername
-                password project.nexusPassword
+//                username project.nexusUsername
+//                password project.nexusPassword
+                username "111"
+                password "111"
             }
 
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
