@@ -121,7 +121,7 @@ public class MyPOSBase<D extends MyPOSBase> implements Serializable {
         }
 
         public MyPOSBase build() {
-            if (applicationId != null && applicationId.length() != 16) {
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                 throw new ApplicationIdException("Invalid application id");
             }
             return new MyPOSBase(this);

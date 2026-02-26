@@ -103,7 +103,7 @@ public class MyPOSVoid extends MyPOSBase<MyPOSVoid> {
                     throw new MissingDateTimeException("missing or invalid date time");
                 }
             }
-            if (applicationId != null && applicationId.length() != 16) {
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                 throw new ApplicationIdException("Invalid application id");
             }
 

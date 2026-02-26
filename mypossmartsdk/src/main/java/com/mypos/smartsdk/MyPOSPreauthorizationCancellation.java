@@ -43,7 +43,7 @@ public class MyPOSPreauthorizationCancellation extends MyPOSBase<MyPOSPreauthori
             if (this.preauthorizationCode == null || preauthorizationCode.isEmpty()) {
                 throw new MissingPreauthCodeException("Missing preauthorization code");
             }
-            if (applicationId != null && applicationId.length() != 16) {
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                 throw new ApplicationIdException("Invalid application id");
             }
 

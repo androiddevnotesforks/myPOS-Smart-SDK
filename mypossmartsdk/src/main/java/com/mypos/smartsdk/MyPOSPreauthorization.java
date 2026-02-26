@@ -217,7 +217,7 @@ public class MyPOSPreauthorization extends MyPOSBase<MyPOSPreauthorization> {
             if(eReceiptReceiver != null && !MyPOSUtil.isEmailValid(eReceiptReceiver) && !MyPOSUtil.isMobileNumberValid(eReceiptReceiver)) {
                 throw new InvalidEReceiptReceiverException("e-receipt credential is not valid");
             }
-            if (applicationId != null && applicationId.length() != 16) {
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                 throw new ApplicationIdException("Invalid application id");
             }
 

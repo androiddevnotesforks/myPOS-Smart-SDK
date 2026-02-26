@@ -129,20 +129,22 @@ public class MyPOSQRPaymentTest {
     // -------------------------------------------------------------------------
 
     @Test(expected = ApplicationIdException.class)
-    public void build_applicationIdTooShort_throwsApplicationIdException() {
+    public void build_applicationIdInvalidChars_throwsApplicationIdException() {
+        // Space is not allowed
         MyPOSQRPayment.builder()
                 .productAmount(10.00)
                 .currency(Currency.EUR)
-                .applicationId("short")
+                .applicationId("invalid id")
                 .build();
     }
 
     @Test(expected = ApplicationIdException.class)
     public void build_applicationIdTooLong_throwsApplicationIdException() {
+        // 51 chars — exceeds the 50-char limit
         MyPOSQRPayment.builder()
                 .productAmount(10.00)
                 .currency(Currency.EUR)
-                .applicationId("12345678901234567") // 17 chars
+                .applicationId("123456789012345678901234567890123456789012345678901")
                 .build();
     }
 

@@ -417,20 +417,22 @@ public class MyPOSPaymentTest {
     // -------------------------------------------------------------------------
 
     @Test(expected = ApplicationIdException.class)
-    public void build_applicationIdTooShort_throwsApplicationIdException() throws Exception {
+    public void build_applicationIdInvalidChars_throwsApplicationIdException() throws Exception {
+        // Space is not allowed
         MyPOSPayment.builder()
                 .productAmount(10.00)
                 .currency(Currency.EUR)
-                .applicationId("short")
+                .applicationId("invalid id")
                 .build();
     }
 
     @Test(expected = ApplicationIdException.class)
     public void build_applicationIdTooLong_throwsApplicationIdException() throws Exception {
+        // 51 chars — exceeds the 50-char limit
         MyPOSPayment.builder()
                 .productAmount(10.00)
                 .currency(Currency.EUR)
-                .applicationId("12345678901234567") // 17 chars
+                .applicationId("123456789012345678901234567890123456789012345678901")
                 .build();
     }
 
@@ -446,7 +448,7 @@ public class MyPOSPaymentTest {
     }
 
     @Test
-    public void build_applicationIdExactly16Chars_succeeds() throws Exception {
+    public void build_applicationIdAlphanumeric_succeeds() throws Exception {
         MyPOSPayment payment = MyPOSPayment.builder()
                 .productAmount(10.00)
                 .currency(Currency.EUR)
@@ -454,6 +456,28 @@ public class MyPOSPaymentTest {
                 .build();
         assertNotNull(payment);
         assertEquals("1234567890123456", payment.getApplicationId());
+    }
+
+    @Test
+    public void build_applicationIdShortValid_succeeds() throws Exception {
+        MyPOSPayment payment = MyPOSPayment.builder()
+                .productAmount(10.00)
+                .currency(Currency.EUR)
+                .applicationId("AB-1")
+                .build();
+        assertNotNull(payment);
+        assertEquals("AB-1", payment.getApplicationId());
+    }
+
+    @Test
+    public void build_applicationIdWithPunctuation_succeeds() throws Exception {
+        MyPOSPayment payment = MyPOSPayment.builder()
+                .productAmount(10.00)
+                .currency(Currency.EUR)
+                .applicationId("my.app_id-01,v2")
+                .build();
+        assertNotNull(payment);
+        assertEquals("my.app_id-01,v2", payment.getApplicationId());
     }
 
     // -------------------------------------------------------------------------

@@ -207,7 +207,7 @@ public class MyPOSRefund extends MyPOSBase<MyPOSRefund> {
                 throw new InvalidEReceiptReceiverException("e-receipt credential is not valid");
             }
 
-            if (applicationId != null && applicationId.length() != 16) {
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                 throw new ApplicationIdException("Invalid application id");
             }
 

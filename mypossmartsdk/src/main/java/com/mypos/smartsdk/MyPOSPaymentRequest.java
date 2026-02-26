@@ -197,7 +197,7 @@ public class MyPOSPaymentRequest {
                 if(this.currency == null) {
                     throw new MissingCurrencyException("Missing currency");
                 } else if(this.GSM != null && !this.GSM.isEmpty() || this.eMail != null && !this.eMail.isEmpty()) {
-                    if (applicationId != null && applicationId.length() != 16) {
+                    if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                         throw new ApplicationIdException("Invalid application id");
                     }
                     return new MyPOSPaymentRequest(this);

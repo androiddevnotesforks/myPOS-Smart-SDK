@@ -314,11 +314,22 @@ public class MyPOSVendingPaymentTest {
     // -------------------------------------------------------------------------
 
     @Test(expected = ApplicationIdException.class)
-    public void build_applicationIdWrongLength_throwsApplicationIdException() throws Exception {
+    public void build_applicationIdInvalidChars_throwsApplicationIdException() throws Exception {
+        // Space is not allowed
         MyPOSVendingPayment.builder()
                 .productAmount(10.00)
                 .currency(Currency.EUR)
-                .applicationId("short")
+                .applicationId("invalid id")
+                .build();
+    }
+
+    @Test(expected = ApplicationIdException.class)
+    public void build_applicationIdTooLong_throwsApplicationIdException() throws Exception {
+        // 51 chars — exceeds the 50-char limit
+        MyPOSVendingPayment.builder()
+                .productAmount(10.00)
+                .currency(Currency.EUR)
+                .applicationId("123456789012345678901234567890123456789012345678901")
                 .build();
     }
 

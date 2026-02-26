@@ -76,8 +76,8 @@ public class MyPOSQRPayment implements Serializable {
 
         protected String foreignTransactionId;
         protected Locale language;
-        private Double      productAmount;
-        private Currency    currency;
+        private Double   productAmount;
+        private Currency currency;
         protected String applicationId;
 
 
@@ -112,7 +112,7 @@ public class MyPOSQRPayment implements Serializable {
             if (this.currency == null) {
                 throw new MissingCurrencyException("Missing currency");
             }
-            if (applicationId != null && applicationId.length() != 16) {
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                 throw new ApplicationIdException("Invalid application id");
             }
             return new MyPOSQRPayment(this);

@@ -110,7 +110,7 @@ public class MyPOSRefundTest {
     }
 
     @Test
-    public void build_withApplicationId16Chars_succeeds() throws Exception {
+    public void build_applicationIdAlphanumeric_succeeds() throws Exception {
         MyPOSRefund refund = MyPOSRefund.builder()
                 .refundAmount(10.00)
                 .currency(Currency.EUR)
@@ -198,11 +198,22 @@ public class MyPOSRefundTest {
     // -------------------------------------------------------------------------
 
     @Test(expected = ApplicationIdException.class)
-    public void build_applicationIdWrongLength_throwsApplicationIdException() throws Exception {
+    public void build_applicationIdInvalidChars_throwsApplicationIdException() throws Exception {
+        // Space is not allowed
         MyPOSRefund.builder()
                 .refundAmount(10.00)
                 .currency(Currency.EUR)
-                .applicationId("short")
+                .applicationId("invalid id")
+                .build();
+    }
+
+    @Test(expected = ApplicationIdException.class)
+    public void build_applicationIdTooLong_throwsApplicationIdException() throws Exception {
+        // 51 chars — exceeds the 50-char limit
+        MyPOSRefund.builder()
+                .refundAmount(10.00)
+                .currency(Currency.EUR)
+                .applicationId("123456789012345678901234567890123456789012345678901")
                 .build();
     }
 

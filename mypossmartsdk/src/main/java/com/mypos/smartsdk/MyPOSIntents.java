@@ -410,9 +410,10 @@ public class MyPOSIntents {
         myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_RECIPIENT_NAME, paymentRequest.getRecipientName());
         myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_CODE, paymentRequest.getRequestCode());
         myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_EXPIRY_DAYS, paymentRequest.getExpiryDays());
-        myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, paymentRequest.getLanguage().getLang());
 
-
+        if (paymentRequest.getLanguage() != null)
+            myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, paymentRequest.getLanguage().getLang());
+        
         if (paymentRequest.getApplicationId() != null && versionName != null) {
             PackageInfo packageInfo = new PackageInfo();
             packageInfo.packageName = paymentRequest.getApplicationId();

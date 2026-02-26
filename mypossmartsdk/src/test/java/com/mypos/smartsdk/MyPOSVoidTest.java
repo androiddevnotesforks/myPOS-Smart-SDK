@@ -66,7 +66,7 @@ public class MyPOSVoidTest {
     }
 
     @Test
-    public void build_withApplicationId16Chars_succeeds() throws Exception {
+    public void build_applicationIdAlphanumeric_succeeds() throws Exception {
         MyPOSVoid voidTx = MyPOSVoid.builder()
                 .voidLastTransactionFlag(true)
                 .applicationId("1234567890123456")
@@ -132,19 +132,41 @@ public class MyPOSVoidTest {
     // -------------------------------------------------------------------------
 
     @Test(expected = ApplicationIdException.class)
-    public void build_applicationIdTooShort_throwsApplicationIdException() throws Exception {
+    public void build_applicationIdInvalidChars_throwsApplicationIdException() throws Exception {
+        // Space is not allowed (not alphanumeric/punctuation)
         MyPOSVoid.builder()
                 .voidLastTransactionFlag(true)
-                .applicationId("short")
+                .applicationId("invalid id")
                 .build();
     }
 
     @Test(expected = ApplicationIdException.class)
     public void build_applicationIdTooLong_throwsApplicationIdException() throws Exception {
+        // 51 chars — exceeds the 50-char limit
         MyPOSVoid.builder()
                 .voidLastTransactionFlag(true)
-                .applicationId("12345678901234567") // 17 chars
+                .applicationId("123456789012345678901234567890123456789012345678901")
                 .build();
+    }
+
+    @Test
+    public void build_applicationIdShortValid_succeeds() throws Exception {
+        MyPOSVoid voidTx = MyPOSVoid.builder()
+                .voidLastTransactionFlag(true)
+                .applicationId("AB-1")
+                .build();
+
+        assertEquals("AB-1", voidTx.getApplicationId());
+    }
+
+    @Test
+    public void build_applicationIdWithPunctuation_succeeds() throws Exception {
+        MyPOSVoid voidTx = MyPOSVoid.builder()
+                .voidLastTransactionFlag(true)
+                .applicationId("my.app_id-01,v2")
+                .build();
+
+        assertEquals("my.app_id-01,v2", voidTx.getApplicationId());
     }
 
     // -------------------------------------------------------------------------

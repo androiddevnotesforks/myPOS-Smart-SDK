@@ -388,7 +388,7 @@ public class MyPOSVendingPayment extends MyPOSBase<MyPOSVendingPayment> {
             if(ReferenceType.isEnabled(referenceType) && !MyPOSUtil.isReferenceNumberValid(referenceNumber)) {
                 throw new InvalidReferenceNumberException("incorrect reference number");
             }
-            if (applicationId != null && applicationId.length() != 16) {
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                 throw new ApplicationIdException("Invalid application id");
             }
 

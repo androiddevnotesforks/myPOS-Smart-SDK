@@ -120,7 +120,7 @@ public class MyPOSGiftCardActivation extends MyPOSBase<MyPOSGiftCardActivation> 
             if (this.currency == null) {
                 throw new MissingCurrencyException("Missing currency");
             }
-            if (applicationId != null && applicationId.length() != 16) {
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
                 throw new ApplicationIdException("Invalid application id");
             }
 
