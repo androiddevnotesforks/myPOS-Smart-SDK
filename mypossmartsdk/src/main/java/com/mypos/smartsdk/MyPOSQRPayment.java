@@ -5,42 +5,11 @@ import com.mypos.smartsdk.exceptions.InvalidAmountException;
 import com.mypos.smartsdk.exceptions.MissingCurrencyException;
 
 import java.io.Serializable;
-import java.util.Locale;
 
-public class MyPOSQRPayment implements Serializable {
+public class MyPOSQRPayment extends MyPOSBase<MyPOSQRPayment> implements Serializable {
 
-    private String      foreignTransactionId;
-    private Locale      language;
     private double      productAmount;
     private Currency    currency;
-    private String      applicationId;
-
-    public String getForeignTransactionId() {
-        return foreignTransactionId;
-    }
-
-    public MyPOSQRPayment setForeignTransactionId(String foreignTransactionId) {
-        this.foreignTransactionId = foreignTransactionId;
-        return this;
-    }
-
-    public Locale getLanguage() {
-        return language;
-    }
-
-    public MyPOSQRPayment seLanguage(Locale language) {
-        this.language = language;
-        return this;
-    }
-
-    public String getApplicationId() {
-        return applicationId;
-    }
-
-    public MyPOSQRPayment setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
-        return this;
-    }
 
     public double getProductAmount() {
         return productAmount;
@@ -61,35 +30,19 @@ public class MyPOSQRPayment implements Serializable {
     }
 
     protected MyPOSQRPayment(QRBuilder builder) {
-        this.foreignTransactionId = builder.foreignTransactionId;
-        this.language = builder.language;
+        super(builder);
         this.productAmount = builder.productAmount;
         this.currency = builder.currency;
-        this.applicationId = builder.applicationId;
     }
 
     public static QRBuilder builder() {
         return new QRBuilder();
     }
 
-    public static class QRBuilder implements Serializable {
+    public static class QRBuilder extends MyPOSBase.BaseBuilder<QRBuilder>{
 
-        protected String foreignTransactionId;
-        protected Locale language;
         private Double   productAmount;
         private Currency currency;
-        protected String applicationId;
-
-
-        public QRBuilder foreignTransactionId(String foreignTransactionId) {
-            this.foreignTransactionId = foreignTransactionId;
-            return this;
-        }
-
-        public QRBuilder language(Locale language) {
-            this.language = language;
-            return this;
-        }
 
         public QRBuilder productAmount(Double productAmount) {
             this.productAmount = productAmount;
@@ -97,11 +50,6 @@ public class MyPOSQRPayment implements Serializable {
         }
         public QRBuilder currency(Currency currency) {
             this.currency = currency;
-            return this;
-        }
-
-        public QRBuilder applicationId(String applicationId) {
-            this.applicationId = applicationId;
             return this;
         }
 

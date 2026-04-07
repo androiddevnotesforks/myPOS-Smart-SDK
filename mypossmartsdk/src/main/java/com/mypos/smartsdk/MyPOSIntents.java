@@ -434,6 +434,8 @@ public class MyPOSIntents {
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PAYMENT);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         if (myPOSQRPayment.getLanguage() != null)
@@ -459,6 +461,8 @@ public class MyPOSIntents {
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_REFUND);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         if (myPOSQRPayment.getLanguage() != null)
@@ -484,6 +488,8 @@ public class MyPOSIntents {
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_VOID);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_TWINT_ORIGINAL_REFERENCE, originalTwintReference);
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
@@ -511,6 +517,8 @@ public class MyPOSIntents {
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PAYMENT);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         if (myPOSQRPayment.getLanguage() != null)
@@ -526,13 +534,15 @@ public class MyPOSIntents {
         return myposIntent;
     }
 
-    public static Intent getSatispayRefundIntent(double amount, Currency currency, String originalReference, boolean skipConfirmationScreen) {
+    public static Intent getSatispayRefundIntent(MyPOSQRPayment myPOSQRPayment, String originalReference, boolean skipConfirmationScreen) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_REFUND);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
         myposIntent.putExtra(MyPOSUtil.INTENT_SATISPAY_ORIGINAL_REFERENCE, originalReference);
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         return myposIntent;
@@ -560,6 +570,8 @@ public class MyPOSIntents {
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PAYMENT);
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         if (myPOSQRPayment.getLanguage() != null)

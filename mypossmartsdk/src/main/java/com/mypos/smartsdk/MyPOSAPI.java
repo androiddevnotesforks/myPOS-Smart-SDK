@@ -551,7 +551,15 @@ public class MyPOSAPI {
     }
 
     public static void openSatispayRefundActivity(Activity activity, double amount, Currency currency, String originalReference, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(amount, currency, originalReference, skipConfirmationScreen);
+        MyPOSQRPayment myPOSQRPayment = MyPOSQRPayment.builder().productAmount(amount).currency(currency).build();
+        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(myPOSQRPayment, originalReference, skipConfirmationScreen);
+
+        startActivityForResult(activity, myposIntent, requestCode);
+
+    }
+
+    public static void openSatispayRefundActivity(Activity activity, MyPOSQRPayment myPOSQRPayment, String originalReference, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(myPOSQRPayment, originalReference, skipConfirmationScreen);
 
         startActivityForResult(activity, myposIntent, requestCode);
 
