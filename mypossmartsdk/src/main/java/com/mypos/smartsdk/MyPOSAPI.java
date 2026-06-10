@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -110,7 +111,7 @@ public class MyPOSAPI {
      * @param skipConfirmationScreen if true, the transaction will complete without the confirmation screen showing
      */
     public static void openPaymentActivity(Activity activity, MyPOSPayment payment, int requestCode, boolean skipConfirmationScreen) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getPaymentIntent(payment, skipConfirmationScreen);
+        Intent myposIntent = MyPOSIntents.getPaymentIntent(payment, skipConfirmationScreen, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
@@ -166,7 +167,7 @@ public class MyPOSAPI {
      * @param skipConfirmationScreen if true, the transaction will complete without the confirmation screen showing
      */
     public static void openVendingPaymentActivity(Activity activity, MyPOSVendingPayment vendingPayment, int requestCode, boolean skipConfirmationScreen) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getVendingPaymentIntent(vendingPayment, skipConfirmationScreen);
+        Intent myposIntent = MyPOSIntents.getVendingPaymentIntent(vendingPayment, skipConfirmationScreen, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
@@ -190,7 +191,7 @@ public class MyPOSAPI {
      * @param skipConfirmationScreen if true, the transaction will complete without the confirmation screen showing
      */
     public static void openRefundActivity(Activity activity, MyPOSRefund refund, int requestCode, boolean skipConfirmationScreen) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getRefundIntent(refund, skipConfirmationScreen);
+        Intent myposIntent = MyPOSIntents.getRefundIntent(refund, skipConfirmationScreen, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
@@ -241,7 +242,7 @@ public class MyPOSAPI {
      * @param skipConfirmationScreen if true, the transaction will complete without the confirmation screen showing
      */
     public static void openVoidActivity(Activity activity, MyPOSVoid voidTr, int requestCode, boolean skipConfirmationScreen) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getVoidIntent(voidTr, skipConfirmationScreen);
+        Intent myposIntent = MyPOSIntents.getVoidIntent(voidTr, skipConfirmationScreen, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
@@ -265,7 +266,7 @@ public class MyPOSAPI {
      * @param skipConfirmationScreen if true, the transaction will complete without the confirmation screen showing
      */
     public static void createPreauthorization(Activity activity, MyPOSPreauthorization preauth, int requestCode, boolean skipConfirmationScreen) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getPreauthorizationIntent(preauth, skipConfirmationScreen);
+        Intent myposIntent = MyPOSIntents.getPreauthorizationIntent(preauth, skipConfirmationScreen, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
@@ -329,7 +330,7 @@ public class MyPOSAPI {
      * @param skipConfirmationScreen if true, the transaction will complete without the confirmation screen showing
      */
     public static void completePreauthorization(Activity activity, MyPOSPreauthorizationCompletion preauth, int requestCode, boolean skipConfirmationScreen) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getPreauthorizationCompletionIntent(preauth, skipConfirmationScreen);
+        Intent myposIntent = MyPOSIntents.getPreauthorizationCompletionIntent(preauth, skipConfirmationScreen, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
@@ -385,7 +386,7 @@ public class MyPOSAPI {
      * @param skipConfirmationScreen if true, the transaction will complete without the confirmation screen showing
      */
     public static void cancelPreauthorization(Activity activity, MyPOSPreauthorizationCancellation preauth, int requestCode, boolean skipConfirmationScreen) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getPreauthorizationCancellationIntent(preauth, skipConfirmationScreen);
+        Intent myposIntent = MyPOSIntents.getPreauthorizationCancellationIntent(preauth, skipConfirmationScreen, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
@@ -428,7 +429,7 @@ public class MyPOSAPI {
      * @param skipConfirmationScreen if true, the transaction will complete without the confirmation screen showing
      */
     public static void openGiftCardActivationActivity(Activity activity, MyPOSGiftCardActivation activation, int requestCode, boolean skipConfirmationScreen) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getGiftCardActivationIntent(activation, skipConfirmationScreen);
+        Intent myposIntent = MyPOSIntents.getGiftCardActivationIntent(activation, skipConfirmationScreen, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
@@ -451,7 +452,7 @@ public class MyPOSAPI {
      * @param requestCode            the request code used later to distinguish
      */
     public static void openGiftCardDeactivationActivity(Activity activity, MyPOSBase<?> base, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent =MyPOSIntents.getGiftCardDeactivationIntent(base, true);
+        Intent myposIntent = MyPOSIntents.getGiftCardDeactivationIntent(base, true, getAppVersionName(activity));
 
         startActivityForResult(activity, myposIntent, requestCode);
     }
@@ -475,12 +476,12 @@ public class MyPOSAPI {
      * @param requestCode            the request code used later to distinguish
      */
     public static void openGiftCardCheckBalanceActivity(Activity activity, MyPOSBase<?> base, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getGiftCardBalanceCheckIntent(base, true);
+        Intent myposIntent = MyPOSIntents.getGiftCardBalanceCheckIntent(base, true, getAppVersionName(activity));
         startActivityForResult(activity, myposIntent, requestCode);
     }
 
     public static void createPaymentRequest(Activity activity, MyPOSPaymentRequest paymentRequest, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getPaymentRequestIntent(paymentRequest);
+        Intent myposIntent = MyPOSIntents.getPaymentRequestIntent(paymentRequest, getAppVersionName(activity));
 
         startActivityForResult(activity, myposIntent, requestCode);
 
@@ -492,7 +493,12 @@ public class MyPOSAPI {
     }
 
     public static void openTwintPaymentActivity(Activity activity, double amount, Currency currency, Locale language, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getTwintPaymentIntent(amount, currency, language, skipConfirmationScreen);
+        MyPOSQRPayment myPOSQRPayment = MyPOSQRPayment.builder().productAmount(amount).currency(currency).language(language).build();
+        openTwintPaymentActivity(activity, myPOSQRPayment, skipConfirmationScreen, requestCode);
+    }
+
+    public static void openTwintPaymentActivity(Activity activity, MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getTwintPaymentIntent(myPOSQRPayment, skipConfirmationScreen, getAppVersionName(activity));
 
         startActivityForResult(activity, myposIntent, requestCode);
 
@@ -504,7 +510,12 @@ public class MyPOSAPI {
     }
 
     public static void openTwintRefundActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getTwintRefundIntent(amount, currency, skipConfirmationScreen);
+        MyPOSQRPayment myPOSQRPayment = MyPOSQRPayment.builder().productAmount(amount).currency(currency).build();
+        openTwintRefundActivity(activity, myPOSQRPayment, skipConfirmationScreen, requestCode);
+    }
+
+    public static void openTwintRefundActivity(Activity activity, MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getTwintRefundIntent(myPOSQRPayment, skipConfirmationScreen, getAppVersionName(activity));
 
         startActivityForResult(activity, myposIntent, requestCode);
 
@@ -516,21 +527,39 @@ public class MyPOSAPI {
     }
 
     public static void openTwintVoidActivity(Activity activity, double amount, Currency currency, String originalReference, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getTwintVoidIntent(amount, currency, originalReference, skipConfirmationScreen);
+        MyPOSQRPayment myPOSQRPayment = MyPOSQRPayment.builder().productAmount(amount).currency(currency).build();
+        openTwintVoidActivity(activity, myPOSQRPayment, originalReference, skipConfirmationScreen, requestCode);
+    }
+
+    public static void openTwintVoidActivity(Activity activity, MyPOSQRPayment myPOSQRPayment, String originalReference, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getTwintVoidIntent(myPOSQRPayment, originalReference, skipConfirmationScreen, getAppVersionName(activity));
 
         startActivityForResult(activity, myposIntent, requestCode);
 
     }
 
     public static void openSatispayPaymentActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getSatispayPaymentIntent(amount, currency, skipConfirmationScreen);
+        MyPOSQRPayment myPOSQRPayment = MyPOSQRPayment.builder().productAmount(amount).currency(currency).build();
+        openSatispayPaymentActivity(activity, myPOSQRPayment, skipConfirmationScreen, requestCode);
+    }
+
+    public static void openSatispayPaymentActivity(Activity activity, MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getSatispayPaymentIntent(myPOSQRPayment, skipConfirmationScreen, getAppVersionName(activity));
 
         startActivityForResult(activity, myposIntent, requestCode);
 
     }
 
     public static void openSatispayRefundActivity(Activity activity, double amount, Currency currency, String originalReference, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(amount, currency, originalReference, skipConfirmationScreen);
+        MyPOSQRPayment myPOSQRPayment = MyPOSQRPayment.builder().productAmount(amount).currency(currency).build();
+        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(myPOSQRPayment, originalReference, skipConfirmationScreen);
+
+        startActivityForResult(activity, myposIntent, requestCode);
+
+    }
+
+    public static void openSatispayRefundActivity(Activity activity, MyPOSQRPayment myPOSQRPayment, String originalReference, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getSatispayRefundIntent(myPOSQRPayment, originalReference, skipConfirmationScreen);
 
         startActivityForResult(activity, myposIntent, requestCode);
 
@@ -544,18 +573,22 @@ public class MyPOSAPI {
     }
 
     public static void openIrisPaymentActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getIrisPaymentIntent(amount, currency, skipConfirmationScreen);
+        MyPOSQRPayment myPOSQRPayment = MyPOSQRPayment.builder().productAmount(amount).currency(currency).build();
+        openIrisPaymentActivity(activity, myPOSQRPayment, skipConfirmationScreen, requestCode);
+    }
+
+    public static void openIrisPaymentActivity(Activity activity, MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+        Intent myposIntent = MyPOSIntents.getIrisPaymentIntent(myPOSQRPayment, skipConfirmationScreen, getAppVersionName(activity));
 
         startActivityForResult(activity, myposIntent, requestCode);
 
     }
-
-    public static void openIrisRefundActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
-        Intent myposIntent = MyPOSIntents.getIrisRefundIntent(amount, currency, skipConfirmationScreen);
-
-        startActivityForResult(activity, myposIntent, requestCode);
-
-    }
+//
+//    public static void openIrisRefundActivity(Activity activity, double amount, Currency currency, boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
+//        Intent myposIntent = MyPOSIntents.getIrisRefundIntent(amount, currency, skipConfirmationScreen);
+//
+//        startActivityForResult(activity, myposIntent, requestCode);
+//    }
 
     public static void openCompleteTxActivity(Activity activity, Double partialAmount, String credential, String foreignTransactionId, Locale language,boolean skipConfirmationScreen, int requestCode) throws FunctionalityNotSupportedException {
         Intent myposIntent = MyPOSIntents.getCompleteTxIntent(partialAmount, credential, foreignTransactionId, language, skipConfirmationScreen);
@@ -576,6 +609,19 @@ public class MyPOSAPI {
             activity.startActivityForResult(intent, requestCode);
         } catch (ActivityNotFoundException e) {
             throw new FunctionalityNotSupportedException("Functionality not supported");
+        }
+    }
+
+    public static String getAppVersionName(Context context) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo packageInfo = pm.getPackageInfo(
+                    context.getPackageName(),
+                    0
+            );
+            return packageInfo.versionName;
+        } catch (Exception e) {
+            return null;
         }
     }
 }

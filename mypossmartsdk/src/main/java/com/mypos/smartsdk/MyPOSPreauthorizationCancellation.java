@@ -1,5 +1,6 @@
 package com.mypos.smartsdk;
 
+import com.mypos.smartsdk.exceptions.ApplicationIdException;
 import com.mypos.smartsdk.exceptions.InvalidReferenceNumberException;
 import com.mypos.smartsdk.exceptions.InvalidReferenceTypeException;
 import com.mypos.smartsdk.exceptions.MissingPreauthCodeException;
@@ -41,6 +42,9 @@ public class MyPOSPreauthorizationCancellation extends MyPOSBase<MyPOSPreauthori
         public MyPOSPreauthorizationCancellation build() throws MissingPreauthCodeException, InvalidReferenceTypeException, InvalidReferenceNumberException {
             if (this.preauthorizationCode == null || preauthorizationCode.isEmpty()) {
                 throw new MissingPreauthCodeException("Missing preauthorization code");
+            }
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
+                throw new ApplicationIdException("Invalid application id");
             }
 
             return new MyPOSPreauthorizationCancellation(this);

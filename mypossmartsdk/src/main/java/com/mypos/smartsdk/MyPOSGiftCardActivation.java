@@ -1,6 +1,7 @@
 package com.mypos.smartsdk;
 
 
+import com.mypos.smartsdk.exceptions.ApplicationIdException;
 import com.mypos.smartsdk.exceptions.InvalidAmountException;
 import com.mypos.smartsdk.exceptions.InvalidOperatorCodeException;
 import com.mypos.smartsdk.exceptions.InvalidReferenceNumberException;
@@ -118,6 +119,9 @@ public class MyPOSGiftCardActivation extends MyPOSBase<MyPOSGiftCardActivation> 
             }
             if (this.currency == null) {
                 throw new MissingCurrencyException("Missing currency");
+            }
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
+                throw new ApplicationIdException("Invalid application id");
             }
 
             return new MyPOSGiftCardActivation(this);

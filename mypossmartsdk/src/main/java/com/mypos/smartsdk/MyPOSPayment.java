@@ -1,6 +1,7 @@
 package com.mypos.smartsdk;
 
 
+import com.mypos.smartsdk.exceptions.ApplicationIdException;
 import com.mypos.smartsdk.exceptions.GiftCardUnsupportedParamsException;
 import com.mypos.smartsdk.exceptions.InvalidAmountException;
 import com.mypos.smartsdk.exceptions.InvalidEReceiptReceiverException;
@@ -338,6 +339,9 @@ public class MyPOSPayment extends MyPOSBase<MyPOSPayment> {
 
             if(eReceiptReceiver != null && !MyPOSUtil.isEmailValid(eReceiptReceiver) && !MyPOSUtil.isMobileNumberValid(eReceiptReceiver)) {
                 throw new InvalidEReceiptReceiverException("e-receipt receiver is not valid");
+            }
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
+                throw new ApplicationIdException("Invalid application id");
             }
 
             return new MyPOSPayment(this);

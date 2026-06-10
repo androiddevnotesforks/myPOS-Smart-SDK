@@ -1,6 +1,7 @@
 package com.mypos.smartsdk;
 
 
+import com.mypos.smartsdk.exceptions.ApplicationIdException;
 import com.mypos.smartsdk.exceptions.GiftCardUnsupportedParamsException;
 import com.mypos.smartsdk.exceptions.InvalidAmountException;
 import com.mypos.smartsdk.exceptions.InvalidEReceiptReceiverException;
@@ -192,7 +193,7 @@ public class MyPOSRefund extends MyPOSBase<MyPOSRefund> {
 
         public MyPOSRefund build() throws InvalidAmountException, MissingCurrencyException, GiftCardUnsupportedParamsException {
             if (this.refundAmount == null || this.refundAmount <= 0.0D || Double.isNaN(this.refundAmount)) {
-                throw new InvalidAmountException("Invalid amount");
+                throw new InvalidAmountException("Invalid or missing amount");
             }
             if (this.currency == null) {
                 throw new MissingCurrencyException("Invalid currency");
@@ -204,6 +205,10 @@ public class MyPOSRefund extends MyPOSBase<MyPOSRefund> {
 
             if(eReceiptReceiver != null && !MyPOSUtil.isEmailValid(eReceiptReceiver) && !MyPOSUtil.isMobileNumberValid(eReceiptReceiver)) {
                 throw new InvalidEReceiptReceiverException("e-receipt credential is not valid");
+            }
+
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
+                throw new ApplicationIdException("Invalid application id");
             }
 
             return new MyPOSRefund(this);

@@ -1,6 +1,7 @@
 package com.mypos.smartsdk;
 
 
+import com.mypos.smartsdk.exceptions.ApplicationIdException;
 import com.mypos.smartsdk.exceptions.MissingAuthCodeException;
 import com.mypos.smartsdk.exceptions.MissingDateTimeException;
 import com.mypos.smartsdk.exceptions.MissingSTANException;
@@ -102,6 +103,10 @@ public class MyPOSVoid extends MyPOSBase<MyPOSVoid> {
                     throw new MissingDateTimeException("missing or invalid date time");
                 }
             }
+            if (applicationId != null && !applicationId.matches("[a-zA-Z0-9!\"#$%&'()*+,\\-./:<=>?@\\[\\]^_`{|}~]{1,50}")) {
+                throw new ApplicationIdException("Invalid application id");
+            }
+
             return new MyPOSVoid(this);
         }
     }

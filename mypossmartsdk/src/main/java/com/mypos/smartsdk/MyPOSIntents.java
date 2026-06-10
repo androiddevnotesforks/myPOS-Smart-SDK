@@ -1,12 +1,17 @@
 package com.mypos.smartsdk;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 
 import java.util.Locale;
 
 public class MyPOSIntents {
 
     public static Intent getPaymentIntent(MyPOSPayment payment, boolean skipConfirmationScreen) {
+        return getPaymentIntent(payment, skipConfirmationScreen, null);
+    }
+
+    public static Intent getPaymentIntent(MyPOSPayment payment, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent;
         if (payment.isMotoTransaction()) {
             myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_MOTO_INTENT);
@@ -42,11 +47,22 @@ public class MyPOSIntents {
         if (payment.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, payment.getBaseColor());
 
+        if (payment.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = payment.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
 
     public static Intent getVendingPaymentIntent(MyPOSVendingPayment payment, boolean skipConfirmationScreen) {
+        return getVendingPaymentIntent(payment, skipConfirmationScreen, null);
+    }
+
+    public static Intent getVendingPaymentIntent(MyPOSVendingPayment payment, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent;
         if (payment.isMotoTransaction()) {
             myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_MOTO_INTENT);
@@ -88,10 +104,22 @@ public class MyPOSIntents {
         if (payment.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, payment.getBaseColor());
 
+
+        if (payment.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = payment.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getRefundIntent(MyPOSRefund refund, boolean skipConfirmationScreen) {
+        return getRefundIntent(refund, skipConfirmationScreen, null);
+    }
+
+    public static Intent getRefundIntent(MyPOSRefund refund, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent;
         if (refund.isMotoTransaction()) {
             myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_MOTO_INTENT);
@@ -120,10 +148,21 @@ public class MyPOSIntents {
         if (refund.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, refund.getBaseColor());
 
+        if (refund.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = refund.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getVoidIntent(MyPOSVoid voidTr, boolean skipConfirmationScreen) {
+        return getVoidIntent(voidTr, skipConfirmationScreen, null);
+    }
+
+    public static Intent getVoidIntent(MyPOSVoid voidTr, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent;
         if(voidTr.getVoidLastTransactionFlag()) {
             myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_VOID_INTENT);
@@ -146,10 +185,22 @@ public class MyPOSIntents {
         if (voidTr.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, voidTr.getBaseColor());
 
+
+        if (voidTr.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = voidTr.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getPreauthorizationIntent(MyPOSPreauthorization preauth, boolean skipConfirmationScreen) {
+        return getPreauthorizationIntent(preauth, skipConfirmationScreen, null);
+    }
+
+    public static Intent getPreauthorizationIntent(MyPOSPreauthorization preauth, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent;
         if (preauth.isMotoTransaction()) {
             myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_MOTO_INTENT);
@@ -179,10 +230,21 @@ public class MyPOSIntents {
         if (preauth.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, preauth.getBaseColor());
 
+        if (preauth.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = preauth.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getPreauthorizationCompletionIntent(MyPOSPreauthorizationCompletion preauth, boolean skipConfirmationScreen) {
+        return getPreauthorizationCompletionIntent(preauth, skipConfirmationScreen, null);
+    }
+
+    public static Intent getPreauthorizationCompletionIntent(MyPOSPreauthorizationCompletion preauth, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_INTENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PREAUTH_COMPLETION);
@@ -200,10 +262,22 @@ public class MyPOSIntents {
         if (preauth.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, preauth.getBaseColor());
 
+
+        if (preauth.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = preauth.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getPreauthorizationCancellationIntent(MyPOSPreauthorizationCancellation preauth, boolean skipConfirmationScreen) {
+        return getPreauthorizationCancellationIntent(preauth, skipConfirmationScreen, null);
+    }
+
+    public static Intent getPreauthorizationCancellationIntent(MyPOSPreauthorizationCancellation preauth, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_INTENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PREAUTH_CANCELLATION);
@@ -216,10 +290,22 @@ public class MyPOSIntents {
         if (preauth.getLanguage() != null)
             myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, preauth.getLanguage().getLanguage());
 
+
+        if (preauth.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = preauth.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getGiftCardActivationIntent(MyPOSGiftCardActivation activation, boolean skipConfirmationScreen) {
+        return getGiftCardActivationIntent(activation, skipConfirmationScreen, null);
+    }
+
+    public static Intent getGiftCardActivationIntent(MyPOSGiftCardActivation activation, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_GIFTCARD_INTENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_GIFTCARD_ACTIVATION);
@@ -238,10 +324,22 @@ public class MyPOSIntents {
         if (activation.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, activation.getBaseColor());
 
+
+        if (activation.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = activation.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getGiftCardDeactivationIntent(MyPOSBase<?> base, boolean skipConfirmationScreen) {
+        return getGiftCardDeactivationIntent(base, skipConfirmationScreen, null);
+    }
+
+    public static Intent getGiftCardDeactivationIntent(MyPOSBase<?> base, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_GIFTCARD_INTENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_GIFTCARD_DEACTIVATION);
@@ -256,10 +354,22 @@ public class MyPOSIntents {
         if (base.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, base.getBaseColor());
 
+
+        if (base.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = base.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getGiftCardBalanceCheckIntent(MyPOSBase<?> base, boolean skipConfirmationScreen) {
+        return getGiftCardBalanceCheckIntent(base, skipConfirmationScreen, null);
+    }
+
+    public static Intent getGiftCardBalanceCheckIntent(MyPOSBase<?> base, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_POINT_GIFTCARD_INTENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_GIFTCARD_BALANCE_CHECK);
@@ -274,10 +384,22 @@ public class MyPOSIntents {
         if (base.getBaseColor() != 0)
             myposIntent.putExtra(MyPOSUtil.INTENT_APP_MAIN_COLOR, base.getBaseColor());
 
+
+        if (base.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = base.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
     public static Intent getPaymentRequestIntent(MyPOSPaymentRequest paymentRequest) {
+        return getPaymentRequestIntent(paymentRequest, null);
+    }
+
+    public static Intent getPaymentRequestIntent(MyPOSPaymentRequest paymentRequest, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_PAYMENT_REQUEST);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, paymentRequest.getProductAmount());
@@ -288,67 +410,139 @@ public class MyPOSIntents {
         myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_RECIPIENT_NAME, paymentRequest.getRecipientName());
         myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_CODE, paymentRequest.getRequestCode());
         myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_EXPIRY_DAYS, paymentRequest.getExpiryDays());
-        myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, paymentRequest.getLanguage().getLang());
+
+        if (paymentRequest.getLanguage() != null)
+            myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, paymentRequest.getLanguage().getLang());
+        
+        if (paymentRequest.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = paymentRequest.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
 
         return myposIntent;
     }
 
-    public static Intent getTwintPaymentIntent(double amount, Currency currency, Locale language, boolean skipConfirmationScreen) {
+    public static Intent getTwintPaymentIntent(MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen) {
+        return getTwintPaymentIntent(myPOSQRPayment, skipConfirmationScreen, null);
+    }
+
+    public static Intent getTwintPaymentIntent(MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_TWINT_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PAYMENT);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
-        if (language != null)
-            myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, language.getLanguage());
+        if (myPOSQRPayment.getLanguage() != null)
+            myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, myPOSQRPayment.getLanguage().getLanguage());
+
+        if (myPOSQRPayment.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = myPOSQRPayment.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
 
         return myposIntent;
     }
 
-    public static Intent getTwintRefundIntent(double amount, Currency currency, boolean skipConfirmationScreen) {
+    public static Intent getTwintRefundIntent(MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen) {
+        return getTwintRefundIntent(myPOSQRPayment, skipConfirmationScreen, null);
+    }
+
+    public static Intent getTwintRefundIntent(MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_TWINT_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_REFUND);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
+
+        if (myPOSQRPayment.getLanguage() != null)
+            myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, myPOSQRPayment.getLanguage().getLanguage());
+
+        if (myPOSQRPayment.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = myPOSQRPayment.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
 
         return myposIntent;
     }
 
-    public static Intent getTwintVoidIntent(double amount, Currency currency, String originalTwintReference, boolean skipConfirmationScreen) {
+    public static Intent getTwintVoidIntent(MyPOSQRPayment myPOSQRPayment, String originalTwintReference, boolean skipConfirmationScreen) {
+        return getTwintVoidIntent(myPOSQRPayment, originalTwintReference, skipConfirmationScreen, null);
+    }
+
+    public static Intent getTwintVoidIntent(MyPOSQRPayment myPOSQRPayment, String originalTwintReference, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_TWINT_VOID);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_VOID);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_TWINT_ORIGINAL_REFERENCE, originalTwintReference);
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
+        if (myPOSQRPayment.getLanguage() != null)
+            myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, myPOSQRPayment.getLanguage().getLanguage());
+
+        if (myPOSQRPayment.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = myPOSQRPayment.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
+
         return myposIntent;
     }
 
 
-    public static Intent getSatispayPaymentIntent(double amount, Currency currency, boolean skipConfirmationScreen) {
+    public static Intent getSatispayPaymentIntent(MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen) {
+        return getSatispayPaymentIntent(myPOSQRPayment, skipConfirmationScreen, null);
+    }
+
+    public static Intent getSatispayPaymentIntent(MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PAYMENT);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
+
+        if (myPOSQRPayment.getLanguage() != null)
+            myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, myPOSQRPayment.getLanguage().getLanguage());
+
+        if (myPOSQRPayment.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = myPOSQRPayment.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
 
         return myposIntent;
     }
 
-    public static Intent getSatispayRefundIntent(double amount, Currency currency, String originalReference, boolean skipConfirmationScreen) {
+    public static Intent getSatispayRefundIntent(MyPOSQRPayment myPOSQRPayment, String originalReference, boolean skipConfirmationScreen) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_SATISPAY_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_REFUND);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
         myposIntent.putExtra(MyPOSUtil.INTENT_SATISPAY_ORIGINAL_REFERENCE, originalReference);
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
 
         return myposIntent;
@@ -366,13 +560,29 @@ public class MyPOSIntents {
         return myposIntent;
     }
 
-    public static Intent getIrisPaymentIntent(double amount, Currency currency, boolean skipConfirmationScreen) {
+    public static Intent getIrisPaymentIntent(MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen) {
+        return getIrisPaymentIntent(myPOSQRPayment, skipConfirmationScreen, null);
+    }
+
+    public static Intent getIrisPaymentIntent(MyPOSQRPayment myPOSQRPayment, boolean skipConfirmationScreen, String versionName) {
         Intent myposIntent = new Intent(MyPOSUtil.PAYMENT_CORE_ENTRY_IRIS_PAYMENT);
 
         myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_REQUEST_CODE, MyPOSUtil.TRANSACTION_TYPE_PAYMENT);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, amount);
-        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, currency.toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_AMOUNT, myPOSQRPayment.getProductAmount());
+        myposIntent.putExtra(MyPOSUtil.INTENT_TRANSACTION_CURRENCY, myPOSQRPayment.getCurrency().toString());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_MERCHANT_RECEIPT, myPOSQRPayment.getPrintMerchantReceipt());
+        myposIntent.putExtra(MyPOSUtil.INTENT_PRINT_CUSTOMER_RECEIPT, myPOSQRPayment.getPrintCustomerReceipt());
         myposIntent.putExtra(MyPOSUtil.INTENT_SKIP_CONFIRMATION_SCREEN, skipConfirmationScreen);
+
+        if (myPOSQRPayment.getLanguage() != null)
+            myposIntent.putExtra(MyPOSUtil.INTENT_PAYMENT_REQUEST_LANGUAGE, myPOSQRPayment.getLanguage().getLanguage());
+
+        if (myPOSQRPayment.getApplicationId() != null && versionName != null) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.packageName = myPOSQRPayment.getApplicationId();
+            packageInfo.versionName = versionName;
+            myposIntent.putExtra(MyPOSUtil.INTENT_ORIGIN_PACKAGE_INFO, packageInfo);
+        }
 
         return myposIntent;
     }

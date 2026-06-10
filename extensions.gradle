@@ -1,6 +1,6 @@
 ext {
-    versionNumber = 26
-    versionString = "1.0.6"
+    versionNumber = 27
+    versionString = "1.0.8"
 
     bintrayRepo = 'myPOSSmartSDK'
     bintrayName = 'mypossmartsdk'
